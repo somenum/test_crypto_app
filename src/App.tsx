@@ -1,6 +1,5 @@
 // core
-import React, {useState, useEffect, FC} from 'react';
-import axios from "axios";
+import React, {FC} from 'react';
 
 // components
 import TableMain from './components/TableMain'
@@ -8,9 +7,7 @@ import TableMain from './components/TableMain'
 // ui
 
 const App:FC = () => {
-    return (
-            <TableMain />
-    );
+    return <TableMain />
 }
 
 export default App;

@@ -33,7 +33,6 @@ const TableMain: FC = () => {
         <>
             {isLoading && <h1>Loading</h1>}
             {error && <h1>{error}</h1>}
-            {JSON.stringify(coins, null, 2)}
             <TextField id="outlined-basic" label="Search" variant="outlined" onChange={handleChange}/>
             <TableContainer component={Paper}>
                 <Table sx={{minWidth: 700}} aria-label="customized table">
