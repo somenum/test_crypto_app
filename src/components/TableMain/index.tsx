@@ -12,8 +12,18 @@ import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import {TableBody, TextField} from "@mui/material";
+import {createStyles, makeStyles} from "@mui/styles";
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        tableContainer: {
+            maxWidth: 1000,
+        }
+    })
+)
 
 const TableMain: FC = () => {
+    const classes = useStyles();
     const dispatch = useAppDispatch()
     const {coins, isLoading, error} = useAppSelector(state => state.coinReducer)
 
@@ -32,11 +42,12 @@ const TableMain: FC = () => {
     return (
         <>
             {isLoading ? <h1>Loading...</h1> :
-                <>
-                    <TextField id="outlined-basic" label="Search" variant="outlined" onChange={handleChange} />
+                <div className={classes.tableContainer}>
+                    <TextField id="outlined-basic" label="Search" variant="outlined" onChange={handleChange}
+                               margin="normal"/>
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 700}} aria-label="customized table">
-                            <TableHeader />
+                            <TableHeader/>
                             <TableBody>
                                 {filteredCoins.map((coin) => {
                                     return (
@@ -50,7 +61,7 @@ const TableMain: FC = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </>
+                </div>
             }
             {error && <h1>{error}</h1>}
         </>
