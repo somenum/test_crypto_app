@@ -1,10 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {fetchCoins} from "./ActionCreators";
 
 export interface ICoins {
-    id: number;
-    name: string;
-    openday: number,
-    price: number
+    name: string,
+    id: string,
+    low_24h: number,
+    high_24h: number,
+    current_price: number,
+    price_change_24h: number,
+    price_change_percentage_24h: number
 }
 
 interface CoinState {
@@ -22,16 +26,17 @@ const initialState: CoinState = {
 export const coinSlice = createSlice({
     name: 'coins',
     initialState,
-    reducers: {
-        coinsFetching (state) {
-            state.isLoading = true;
-        },
-        coinsFetchingSuccess (state, action: PayloadAction<ICoins[]>) {
+    reducers: {},
+    extraReducers: {
+        [fetchCoins.fulfilled.type]: (state, action: PayloadAction<ICoins[]>) => {
             state.isLoading = false;
-            state.error = '';
+            state.error = ''
             state.coins = action.payload;
         },
-        coinsFetchingError (state,  action: PayloadAction<string>) {
+        [fetchCoins.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [fetchCoins.rejected.type]: (state,  action: PayloadAction<string>) => {
             state.isLoading = false;
             state.error = action.payload
         },

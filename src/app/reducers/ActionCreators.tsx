@@ -1,14 +1,16 @@
 // core
-import {AppDispatch} from "../store";
 import axios from "axios";
-import {ICoins, coinSlice} from "./CoinSlice";
+import {ICoins} from "./CoinSlice";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-export const fetchCoins = () => async (dispatch: AppDispatch) => {
-    try {
-        dispatch(coinSlice.actions.coinsFetching())
-        const response = await axios.get<ICoins[]>('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD')
-        dispatch(coinSlice.actions.coinsFetchingSuccess(response.data))
-    } catch (e) {
-        dispatch(coinSlice.actions.coinsFetchingError(e.message))
+export const fetchCoins = createAsyncThunk(
+    'user/fetchAll',
+    async (_, thunkAPI) => {
+        try {
+            const response = await axios.get<ICoins>('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false')
+            return response.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue("Can't load coins")
+        }
     }
-}
+)

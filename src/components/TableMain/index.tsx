@@ -31,22 +31,28 @@ const TableMain: FC = () => {
     ))
     return (
         <>
-            {isLoading && <h1>Loading</h1>}
+            {isLoading ? <h1>Loading...</h1> :
+                <>
+                    <TextField id="outlined-basic" label="Search" variant="outlined" onChange={handleChange} />
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 700}} aria-label="customized table">
+                            <TableHeader />
+                            <TableBody>
+                                {filteredCoins.map((coin) => {
+                                    return (
+                                        <TableData key={coin.id} name={coin.name} price={coin.current_price}
+                                                   lowestPrice={coin.low_24h} highestPrice={coin.high_24h}
+                                                   priceChange={coin.price_change_24h}
+                                                   priceChangePercent={coin.price_change_percentage_24h}
+                                        />
+                                    )
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </>
+            }
             {error && <h1>{error}</h1>}
-            <TextField id="outlined-basic" label="Search" variant="outlined" onChange={handleChange}/>
-            <TableContainer component={Paper}>
-                <Table sx={{minWidth: 700}} aria-label="customized table">
-                    <TableHeader/>
-                    <TableBody>
-                        {filteredCoins.map((coin) => {
-                            return (
-                                <TableData key={coin.id} name={coin.name} price={coin.price}
-                                           openday={coin.openday}/>
-                            )
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
         </>
     )
 }

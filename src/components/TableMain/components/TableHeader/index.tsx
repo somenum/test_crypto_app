@@ -19,9 +19,10 @@ const TableHeader:FC = () => {
         <TableHead>
             <TableRow>
                 <StyledTableCell>Coin name</StyledTableCell>
-                <StyledTableCell align="right">Current price (USD)</StyledTableCell>
-                <StyledTableCell align="right">Opening Price (USD)</StyledTableCell>
-                <StyledTableCell align="right">Price Increase</StyledTableCell>
+                <StyledTableCell align="left">Current price (USD)</StyledTableCell>
+                <StyledTableCell align="left">Highest Price (USD)</StyledTableCell>
+                <StyledTableCell align="left">Lowest Price (USD)</StyledTableCell>
+                <StyledTableCell align="left">Price Change</StyledTableCell>
             </TableRow>
         </TableHead>
     )

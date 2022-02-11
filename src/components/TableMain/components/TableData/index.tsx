@@ -26,30 +26,25 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 interface TableDataType {
     price: number,
     name: string,
-    openday: number
+    lowestPrice: number,
+    highestPrice: number,
+    priceChange:  number,
+    priceChangePercent: number
 }
 
 const TableData: FC<TableDataType> = (props ) => {
 
-    const {price, name, openday} = props
+    const {price, name, highestPrice, lowestPrice, priceChange, priceChangePercent} = props
 
-    const priceIncrease = () => {
-        const currentPrice = price
-        const openDayPrice = openday
-        let priceIncreaseUSD = currentPrice - openDayPrice
-        let priceIncreasePercent = 100 * currentPrice / (currentPrice + openDayPrice)
-        return (
-            `${priceIncreasePercent} (${priceIncreaseUSD})`
-        )
-    }
     return (
         <StyledTableRow key={name}>
             <StyledTableCell component="th" scope="row">
                 {name}
             </StyledTableCell>
-            <StyledTableCell align="right">{price}</StyledTableCell>
-            <StyledTableCell align="right">{openday}</StyledTableCell>
-            <StyledTableCell align="right">{priceIncrease()}</StyledTableCell>
+            <StyledTableCell align="left">$ {price}</StyledTableCell>
+            <StyledTableCell align="left">$ {highestPrice}</StyledTableCell>
+            <StyledTableCell align="left">$ {lowestPrice}</StyledTableCell>
+            <StyledTableCell align="left">{`${priceChangePercent}% ($ ${priceChange})`}</StyledTableCell>
         </StyledTableRow>
     )
 }
